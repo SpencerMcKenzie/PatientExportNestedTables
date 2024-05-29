@@ -22,9 +22,7 @@ var dataColumnName = 'Column1';
 var tabulatorData = [];
 const facNames = [];
 
-/*STANDARD DOMO.GET*/
 
-//domo.get('data/v1/dataset0').then(handleResult);
   var query = (new Query())
   .useBeastMode(true) // For information about using a Beast Mode see: https://developer.domo.com/docs/dev-studio-references/data-api#Beast%20Modes
   .select('PharmacyLocation','FacName','PatientName','PatBirthDate')
@@ -35,22 +33,19 @@ const facNames = [];
  domo.get(query, {format: 'array-of-objects'}).then(handleResult); 
 
 
-  
-  
- 
 
 function handleResult(data){
 
-console.log("handleResult data: ",data);
+//console.log("handleResult data: ",data);
 
 // let result = data.map(a => a.PatientName);
   let result = data.map(o => { return {PharmacyLocation: o.Column1, FacName: o.FacName ,PatientName: o.PatientName,PatBirthDate: o.PatBirthDate} })
-  console.log("let result: ",result);
+  console.log("result: ",result);
 
   var table = new Tabulator("#example-table", {
-   data:facNames,
+   data:result,
    //renderHorizontal:"virtual",
-   //autoColumns:true,
+   autoColumns:true,
    height:"311px",
    layout:"fitColumns",
    //layout:"fitDataTable",
